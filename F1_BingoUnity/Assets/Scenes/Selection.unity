@@ -565,7 +565,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Selectionnes 6 bingos !
+  m_Text: Selectionnes x bingos !
 --- !u!222 &1935119078
 CanvasRenderer:
   m_ObjectHideFlags: 0

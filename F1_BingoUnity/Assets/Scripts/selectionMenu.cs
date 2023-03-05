@@ -15,7 +15,7 @@ public class selectionMenu : MonoBehaviour
     
     private void Start()
     {
-        numberOfBingo = 6;
+        numberOfBingo = 4;
 
         selectedButtons = new List<int>();
         buttons = new List<GameObject>();
@@ -24,7 +24,7 @@ public class selectionMenu : MonoBehaviour
         {
             buttons.Add(butt.gameObject);
         }
-
+        validationButton.GetComponentInChildren<Text>().text = "Selectionnes " + numberOfBingo + " bingos !";
     }
 
     public void bingoButton(int ID)
@@ -70,7 +70,7 @@ public class selectionMenu : MonoBehaviour
         }
         else
         {
-            validationButton.GetComponentInChildren<Text>().text = "Selectionnes 6 bingos !";
+            validationButton.GetComponentInChildren<Text>().text = "Selectionnes " + numberOfBingo + " bingos !";
             validationButton.GetComponent<Image>().color = Color.white;
             validationButton.GetComponent<Image>().raycastTarget = false;
 

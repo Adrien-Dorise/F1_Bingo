@@ -31,7 +31,8 @@ public class race : MonoBehaviour
         {
             buttons.Add(butt.gameObject);
             butt.image.sprite = bingoImage[int.Parse(savedButt.Split(' ')[id+1])];
-            if(savedButtStates[id] == 0)
+            
+            if(savedButtStates[id] == '0')
             {
                 butt.image.color = Color.white;
             }
@@ -40,6 +41,7 @@ public class race : MonoBehaviour
                 selectedbuttons.Add(id);
                 butt.image.color = Color.green;
             }
+            id++;
         }
     }
 
