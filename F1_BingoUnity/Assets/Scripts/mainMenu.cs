@@ -18,7 +18,14 @@ public class mainMenu : MonoBehaviour
 
     public void raceButton()
     {
-        SceneManager.LoadScene("Race");
+        if(PlayerPrefs.HasKey("race"))
+        {
+            SceneManager.LoadScene("Race");
+        }
+        else
+        {
+            SceneManager.LoadScene("Selection");
+        }
     }
     
     
