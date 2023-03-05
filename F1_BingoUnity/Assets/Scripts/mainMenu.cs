@@ -18,7 +18,7 @@ public class mainMenu : MonoBehaviour
 
     public void raceButton()
     {
-        if(PlayerPrefs.HasKey("race"))
+        if(PlayerPrefs.HasKey(Save.race))
         {
             SceneManager.LoadScene("Race");
         }
@@ -45,14 +45,14 @@ public class mainMenu : MonoBehaviour
     {
         optionCanvas.SetActive(false);
         confirmationCanvas.SetActive(true);
-        optionToReset = "race";
+        optionToReset = Save.race;
     }
     
     public void resetSeasonButton()
     {
         optionCanvas.SetActive(false);
         confirmationCanvas.SetActive(true);
-        optionToReset = "season";
+        optionToReset = Save.season;
     }
     
     public void backButton()

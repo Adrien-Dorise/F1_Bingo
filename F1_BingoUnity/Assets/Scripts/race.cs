@@ -1,31 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class selectionMenu : MonoBehaviour
+public class race : MonoBehaviour
 {
-    private GameObject validationButton; 
+
+    [SerializeField] private List<Sprite> bingoImage;
     private List<GameObject> buttons;
+    private List<int> selectedbuttons;
+    private GameObject RDVvirage;
+    private int bingoState;
 
-     [SerializeField] public List<int> selectedButtons;
 
-    [SerializeField] private int numberOfBingo;
-    
     private void Start()
     {
-        numberOfBingo = 6;
+        Debug.Log(PlayerPrefs.GetString(Save.race));
+        Debug.Log(PlayerPrefs.GetString(Save.racestatus));
 
-        selectedButtons = new List<int>();
+        bingoState = 0;
+        RDVvirage = GameObject.Find("RDVvirage");
         buttons = new List<GameObject>();
-        validationButton = GameObject.Find("Validation").gameObject;
+        selectedbuttons = new List<int>();
+        
+        string savedButt = PlayerPrefs.GetString(Save.race); 
+        string savedButtStates = PlayerPrefs.GetString(Save.racestatus); 
+        int id = 0;
         foreach(Button butt in GameObject.Find("Buttons").transform.GetComponentsInChildren<Button>())
         {
             buttons.Add(butt.gameObject);
+            butt.image.sprite = bingoImage[int.Parse(savedButt.Split(' ')[id+1])];
+            if(savedButtStates[id] == 0)
+            {
+                butt.image.color = Color.white;
+            }
+            else
+            {
+                selectedbuttons.Add(id);
+                butt.image.color = Color.green;
+            }
         }
-
     }
+
+
+/*
 
     public void bingoButton(int ID)
     {
@@ -84,18 +103,10 @@ public class selectionMenu : MonoBehaviour
         }
     }
 
-    public void GO()
-    {
-        string saveRace = "";
-        string saveStatus = "";
-        foreach(int id in selectedButtons)
-        {
-            saveRace = saveRace + " " + id;
-            saveStatus += "0";
-        }
-        PlayerPrefs.SetString(Save.race, saveRace);
-        PlayerPrefs.SetString(Save.racestatus, saveStatus);
-        SceneManager.LoadScene("Race");
-    }
+*/
 
+    public void backButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
