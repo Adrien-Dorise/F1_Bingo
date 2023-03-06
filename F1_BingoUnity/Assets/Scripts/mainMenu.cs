@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class <c>mainMenu</c> to attach to Game Manager gameObject of the mainMenu scene.
+/// This class set all button behaviour of the main scene.
+/// The buttons in this class are pretty straightforward, as they either enable new canvases, or load scenes.
+/// </summary>
 public class mainMenu : MonoBehaviour
 {
     public GameObject menuCanvas, optionCanvas, confirmationCanvas;

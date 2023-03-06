@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class <c>selectionMenu</c> to attach to a Game Manager gameObject in the selectionMenu scene.
+/// This class set all button behaviour for the selection screen.
+/// </summary>
 public class selectionMenu : MonoBehaviour
 {
     private GameObject validationButton; 
@@ -13,6 +17,10 @@ public class selectionMenu : MonoBehaviour
 
     [SerializeField] private int numberOfBingo;
     
+
+    /// <summary>
+    /// Method <c>Start</c> Initalise the buttons available in the scene as well as state variables.
+    /// </summary>
     private void Start()
     {
         numberOfBingo = 4;
@@ -27,6 +35,12 @@ public class selectionMenu : MonoBehaviour
         validationButton.GetComponentInChildren<Text>().text = "Selectionnes " + numberOfBingo + " bingos !";
     }
 
+    /// <summary>
+    /// Method <c>bingoButton</c> set the bingo buttons behaviour.
+    /// When a button is clicked, we check if this button was already selected before by comparing its ID with saved IDs.
+    /// If not clicked before, the button is added to the ID saver variable, otherwise, it is removed from it.
+    /// We also verify that the max selection treshold is not reached.
+    /// </summary>
     public void bingoButton(int ID)
     {
         
@@ -84,6 +98,9 @@ public class selectionMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method <c>GO</c> set the switch to the race scene
+    /// </summary>
     public void GO()
     {
         string saveRace = "";
