@@ -13,7 +13,7 @@ public class race : MonoBehaviour
 {
 
     [SerializeField] private List<Sprite> bingoImage; //To set in editor: List of all bingo images available
-    private List<GameObject> buttons; //Reference to all butotns in the scene
+    public List<GameObject> buttons; //Reference to all butotns in the scene
     private List<int> selectedButtons; //Store the state of eac buttons in the scene
     private GameObject RDVvirage; //Reference to RDVvirage bingo element
     private bool isRace; //true if we are on race screen, false for season screen

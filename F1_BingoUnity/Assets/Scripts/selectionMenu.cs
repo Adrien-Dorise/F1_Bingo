@@ -99,20 +99,23 @@ public class selectionMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Method <c>GO</c> set the switch to the race scene
+    /// Method <c>GO</c> set the switch to the race scene when bingos are selected
     /// </summary>
     public void GO()
     {
-        string saveRace = "";
-        string saveStatus = "";
-        foreach(int id in selectedButtons)
+        if(selectedButtons.Count == numberOfBingo)
         {
-            saveRace = saveRace + " " + id;
-            saveStatus += "0";
+            string saveRace = "";
+            string saveStatus = "";
+            foreach(int id in selectedButtons)
+            {
+                saveRace = saveRace + " " + id;
+                saveStatus += "0";
+            }
+            PlayerPrefs.SetString(Save.race, saveRace);
+            PlayerPrefs.SetString(Save.racestatus, saveStatus);
+            SceneManager.LoadScene("Race");
         }
-        PlayerPrefs.SetString(Save.race, saveRace);
-        PlayerPrefs.SetString(Save.racestatus, saveStatus);
-        SceneManager.LoadScene("Race");
     }
 
 }
