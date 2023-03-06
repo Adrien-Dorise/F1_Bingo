@@ -10,12 +10,12 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class selectionMenu : MonoBehaviour
 {
-    private GameObject validationButton; 
-    private List<GameObject> buttons;
+    private GameObject validationButton; //Reference to the validation button object 
+    private List<GameObject> buttons; //Reference to all buttons displayed in the scene
 
-     [SerializeField] public List<int> selectedButtons;
+     [SerializeField] public List<int> selectedButtons; //Reference to all selected buttons in the screen
 
-    [SerializeField] private int numberOfBingo;
+    [SerializeField] private int numberOfBingo; //To set in Start(), bingo threshold to start the race Bingo
     
 
     /// <summary>

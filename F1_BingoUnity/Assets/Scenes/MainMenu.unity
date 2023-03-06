@@ -495,7 +495,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Reset saison
+  m_Text: 'Reset course
 
 '
 --- !u!222 &79670978
@@ -2300,7 +2300,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Reset course
+  m_Text: 'Reset saison
 
 '
 --- !u!222 &1905172833

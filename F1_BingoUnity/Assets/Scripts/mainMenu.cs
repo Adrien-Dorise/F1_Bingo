@@ -10,8 +10,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class mainMenu : MonoBehaviour
 {
-    public GameObject menuCanvas, optionCanvas, confirmationCanvas;
-    private string optionToReset;
+    public GameObject menuCanvas, optionCanvas, confirmationCanvas; //Reference to all canvases use din the main screen
+    private string optionToReset; //Store the selected playerPref setting to reset when arriving in the confirmation screen
 
     private void Start()
     {
@@ -70,13 +70,13 @@ public class mainMenu : MonoBehaviour
     {
         PlayerPrefs.DeleteKey(optionToReset);
         confirmationCanvas.SetActive(false);
-        optionCanvas.SetActive(true);
+        menuCanvas.SetActive(true);
     }
     
     public void noButton()
     {
         confirmationCanvas.SetActive(false);
-        optionCanvas.SetActive(true);
+        menuCanvas.SetActive(true);
     }
 
 }

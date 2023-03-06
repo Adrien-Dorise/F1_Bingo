@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
+/// <summary>
+/// Class <c>selectionMenu</c> to attach to a Game Manager gameObject in the race scene.
+/// This class set all button behaviour for the race screen.
+/// </summary>
 public class race : MonoBehaviour
 {
 
-    [SerializeField] private List<Sprite> bingoImage;
-    private List<GameObject> buttons;
-    private List<int> selectedbuttons;
-    private GameObject RDVvirage;
-    private int bingoState;
+    [SerializeField] private List<Sprite> bingoImage; //To set in editor: List of all bingo images available
+    private List<GameObject> buttons; //Reference to all butotns in the scene
+    private List<int> selectedButtons; //Store the state of eac buttons in the scene
+    private GameObject RDVvirage; //Reference to RDVvirage bingo element
 
 
     private void Start()
@@ -19,47 +23,56 @@ public class race : MonoBehaviour
         Debug.Log(PlayerPrefs.GetString(Save.race));
         Debug.Log(PlayerPrefs.GetString(Save.racestatus));
 
-        bingoState = 0;
         RDVvirage = GameObject.Find("RDVvirage");
         buttons = new List<GameObject>();
-        selectedbuttons = new List<int>();
+        selectedButtons = new List<int>();
         
         string savedButt = PlayerPrefs.GetString(Save.race); 
         string savedButtStates = PlayerPrefs.GetString(Save.racestatus); 
-        int id = 0;
+        int id = 1;
         foreach(Button butt in GameObject.Find("Buttons").transform.GetComponentsInChildren<Button>())
         {
             buttons.Add(butt.gameObject);
-            butt.image.sprite = bingoImage[int.Parse(savedButt.Split(' ')[id+1])];
+            butt.image.sprite = bingoImage[int.Parse(savedButt.Split(' ')[id])-1];
             
-            if(savedButtStates[id] == '0')
+            if(savedButtStates[id-1] == '0')
             {
                 butt.image.color = Color.white;
             }
             else
             {
-                selectedbuttons.Add(id);
+                selectedButtons.Add(id);
                 butt.image.color = Color.green;
             }
             id++;
         }
+        
+        RDVvirageManagement();
     }
 
 
-/*
-
+    
+    /// <summary>
+    /// Method <c>bingoButton</c> set the bingo buttons behaviour.
+    /// When a button is clicked, we check if this button was already selected before by comparing its ID with saved IDs.
+    /// If not clicked before, the button is added to the ID saver variable, otherwise, it is removed from it.
+    /// PlayerPrefs state is also managed to save the modification.
+    /// </summary>
     public void bingoButton(int ID)
     {
-        
+        System.Text.StringBuilder saveState = new System.Text.StringBuilder(PlayerPrefs.GetString(Save.racestatus));
         if(!selectedButtons.Contains(ID)) //The button was previously off and put on on click
         {
             selectedButtons.Add(ID);
             buttons[ID-1].GetComponent<Image>().color = Color.green;
-
+            saveState[ID-1] = '1';
+            PlayerPrefs.SetString(Save.racestatus, saveState.ToString());
         }
         else
         {
             buttons[ID-1].GetComponent<Image>().color = Color.white;
+            saveState[ID-1] = '0';
+            PlayerPrefs.SetString(Save.racestatus, saveState.ToString());
             try
             {   
                 selectedButtons.Remove(ID);
@@ -69,43 +82,28 @@ public class race : MonoBehaviour
                 Debug.Log(e);
             }
         }
+        RDVvirageManagement();
+    }
 
-
-        // In case we selected all buttons.
-        if(selectedButtons.Count >= numberOfBingo)
+    
+    /// <summary>
+    /// Method <c>RDVvirageManagement</c> manage the RDVvirage bingo card. This function is to call after each bingo card click.
+    /// More specifically, it verifies that the red/green lights are in check with the number of selected bingo
+    /// </summary>   
+    private void RDVvirageManagement()
+    {
+        for(int i = 0 ; i < RDVvirage.transform.childCount; i++)
         {
-            validationButton.GetComponentInChildren<Text>().text = "RDV au premier virage ?";
-            validationButton.GetComponent<Image>().color = Color.green;
-            validationButton.GetComponent<Image>().raycastTarget = true;
-
-            for(int i = 0; i < buttons.Count; i ++)
+            if(i < selectedButtons.Count * 6)
             {
-                if(!selectedButtons.Contains(i+1)) //We only mask not selected buttons
-                {
-                    buttons[i].GetComponent<Button>().interactable = false;
-                    Color col = buttons[i].GetComponent<Image>().color;
-                    col.a = 0.5f;
-                    buttons[i].GetComponent<Image>().color = col;
-                }
+                RDVvirage.transform.GetChild(i).GetComponent<Light2D>().color = Color.green;
             }
-        }
-        else
-        {
-            validationButton.GetComponentInChildren<Text>().text = "Selectionnes 6 bingos !";
-            validationButton.GetComponent<Image>().color = Color.white;
-            validationButton.GetComponent<Image>().raycastTarget = false;
-
-            foreach(GameObject butt in buttons)
+            else
             {
-                butt.GetComponent<Button>().interactable = true;
-                Color col = butt.GetComponent<Image>().color;
-                col.a = 1f;
-                butt.GetComponent<Image>().color = col;
+                RDVvirage.transform.GetChild(i).GetComponent<Light2D>().color = Color.red;
             }
         }
     }
-
-*/
 
     public void backButton()
     {
