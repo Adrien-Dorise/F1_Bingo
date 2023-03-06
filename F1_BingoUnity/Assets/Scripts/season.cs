@@ -6,10 +6,10 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 
 /// <summary>
-/// Class <c>selectionMenu</c> to attach to a Game Manager gameObject in the race scene.
+/// Class <c>season</c> to attach to a Game Manager gameObject in the race scene.
 /// This class set all button behaviour for the race screen.
 /// </summary>
-public class race : MonoBehaviour
+public class season : MonoBehaviour
 {
 
     [SerializeField] private List<Sprite> bingoImage; //To set in editor: List of all bingo images available
@@ -20,8 +20,11 @@ public class race : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(PlayerPrefs.GetString(Save.race));
-        Debug.Log(PlayerPrefs.GetString(Save.racestatus));
+        if(!PlayerPrefs.HasKey(Save.season)) //In case there is not season save stored
+        {
+            PlayerPrefs.SetString(Save.season, "".PadRight(GameObject.Find("Buttons").transform.childCount, '0')); //Add as many zeros as buttons on the scene.
+        }
+        Debug.Log(PlayerPrefs.GetString(Save.season));
 
         RDVvirage = GameObject.Find("RDVvirage");
         buttons = new List<GameObject>();
@@ -32,8 +35,6 @@ public class race : MonoBehaviour
         foreach(Button butt in GameObject.Find("Buttons").transform.GetComponentsInChildren<Button>())
         {
             buttons.Add(butt.gameObject);
-            //butt.image.sprite = bingoImage[int.Parse(savedButt.Split(' ')[id])-1];
-            
             if(savedButtStates[id-1] == '0')
             {
                 butt.image.color = Color.white;
@@ -59,19 +60,19 @@ public class race : MonoBehaviour
     /// </summary>
     public void bingoButton(int ID)
     {
-        System.Text.StringBuilder saveState = new System.Text.StringBuilder(PlayerPrefs.GetString(Save.racestatus));
+        System.Text.StringBuilder saveState = new System.Text.StringBuilder(PlayerPrefs.GetString(Save.season));
         if(!selectedButtons.Contains(ID)) //The button was previously off and put on on click
         {
             selectedButtons.Add(ID);
             buttons[ID-1].GetComponent<Image>().color = Color.green;
             saveState[ID-1] = '1';
-            PlayerPrefs.SetString(Save.racestatus, saveState.ToString());
+            PlayerPrefs.SetString(Save.season, saveState.ToString());
         }
         else
         {
             buttons[ID-1].GetComponent<Image>().color = Color.white;
             saveState[ID-1] = '0';
-            PlayerPrefs.SetString(Save.racestatus, saveState.ToString());
+            PlayerPrefs.SetString(Save.season, saveState.ToString());
             try
             {   
                 selectedButtons.Remove(ID);
@@ -93,7 +94,7 @@ public class race : MonoBehaviour
     {
         for(int i = 0 ; i < RDVvirage.transform.childCount; i++)
         {
-            if(i < selectedButtons.Count * 6)
+            if(i < selectedButtons.Count * 1)
             {
                 RDVvirage.transform.GetChild(i).GetComponent<Light2D>().color = Color.green;
             }
