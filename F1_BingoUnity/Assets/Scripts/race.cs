@@ -63,7 +63,7 @@ public class race : MonoBehaviour
             else
             {
                 selectedButtons.Add(id);
-                butt.image.color = Color.green;
+                butt.image.color = new Color(0.4f,1f,0.4f,1f);
             }
             id++;
         }
@@ -85,7 +85,7 @@ public class race : MonoBehaviour
         if(!selectedButtons.Contains(ID)) //The button was previously off and put on on click
         {
             selectedButtons.Add(ID);
-            buttons[ID-1].GetComponent<Image>().color = Color.green;
+            buttons[ID-1].GetComponent<Image>().color = new Color(0.4f,1f,0.4f,1f);
             saveState[ID-1] = '1';
             PlayerPrefs.SetString(saveStatus, saveState.ToString());
         }
@@ -117,7 +117,7 @@ public class race : MonoBehaviour
         {
             if(i < selectedButtons.Count * lightsPerBingo)
             {
-                RDVvirage.transform.GetChild(i).GetComponent<Light2D>().color = Color.green;
+                RDVvirage.transform.GetChild(i).GetComponent<Light2D>().color = new Color(0.4f,1f,0.4f,1f);
             }
             else
             {

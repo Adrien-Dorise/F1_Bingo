@@ -47,7 +47,7 @@ public class selectionMenu : MonoBehaviour
         if(!selectedButtons.Contains(ID)) //The button was previously off and put on on click
         {
             selectedButtons.Add(ID);
-            buttons[ID-1].GetComponent<Image>().color = Color.green;
+            buttons[ID-1].GetComponent<Image>().color = new Color(0.4f,1f,0.4f,1f);
 
         }
         else
@@ -68,7 +68,7 @@ public class selectionMenu : MonoBehaviour
         if(selectedButtons.Count >= numberOfBingo)
         {
             validationButton.GetComponentInChildren<Text>().text = "RDV au premier virage ?";
-            validationButton.GetComponent<Image>().color = Color.green;
+            validationButton.GetComponent<Image>().color = new Color(0.4f,1f,0.4f,1f);
             validationButton.GetComponent<Image>().raycastTarget = true;
 
             for(int i = 0; i < buttons.Count; i ++)

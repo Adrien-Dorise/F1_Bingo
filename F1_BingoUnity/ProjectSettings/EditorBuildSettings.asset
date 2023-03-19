@@ -18,4 +18,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Race.unity
     guid: 3207e3c6beaaadb48945e500b367b4ab
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: b9fde8c74ebbbe2499e8f004bdab89e1, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: c5b0c67203e8c174da641154968a9e3b, type: 2}
