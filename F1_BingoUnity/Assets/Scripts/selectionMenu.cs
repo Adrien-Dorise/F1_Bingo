@@ -16,7 +16,7 @@ public class selectionMenu : MonoBehaviour
      [SerializeField] public List<int> selectedButtons; //Reference to all selected buttons in the screen
 
     [SerializeField] private int numberOfBingo; //To set in Start(), bingo threshold to start the race Bingo
-    
+    private AudioSource audioObject;
 
     /// <summary>
     /// Method <c>Start</c> Initalise the buttons available in the scene as well as state variables.
@@ -25,6 +25,16 @@ public class selectionMenu : MonoBehaviour
     {
         numberOfBingo = 4;
 
+        audioObject = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        if (!PlayerPrefs.HasKey(Save.isMusic))
+        {
+            PlayerPrefs.SetInt(Save.isMusic, 1);
+            audioObject.volume = 1;
+        }
+        else
+        {
+            audioObject.volume = PlayerPrefs.GetInt(Save.isMusic);
+        }
         selectedButtons = new List<int>();
         buttons = new List<GameObject>();
         validationButton = GameObject.Find("Validation").gameObject;

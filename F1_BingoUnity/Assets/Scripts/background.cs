@@ -38,6 +38,7 @@ public class background : MonoBehaviour
     /// </summary>
     public void backButton()
     {
+        Debug.Log("backButton");
         try
         {
             Color col;

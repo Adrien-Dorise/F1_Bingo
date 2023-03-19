@@ -12,6 +12,7 @@ public class mainMenu : MonoBehaviour
 {
     public GameObject menuCanvas, optionCanvas, confirmationCanvas; //Reference to all canvases use din the main screen
     private string optionToReset; //Store the selected playerPref setting to reset when arriving in the confirmation screen
+    private AudioSource audioObject;
 
     private void Start()
     {
@@ -19,6 +20,16 @@ public class mainMenu : MonoBehaviour
         optionCanvas.SetActive(false);
         confirmationCanvas.SetActive(false);
         optionToReset = "";
+        audioObject = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        if (!PlayerPrefs.HasKey(Save.isMusic))
+        {
+            PlayerPrefs.SetInt(Save.isMusic, 1);
+            audioObject.volume = 1;
+        }
+        else
+        {
+            audioObject.volume = PlayerPrefs.GetInt(Save.isMusic);
+        }
     }
 
     public void raceButton()
@@ -77,6 +88,20 @@ public class mainMenu : MonoBehaviour
     {
         confirmationCanvas.SetActive(false);
         menuCanvas.SetActive(true);
+    }
+
+    public void musicButton()
+    {
+        if (PlayerPrefs.GetInt(Save.isMusic) == 1)
+        {
+            PlayerPrefs.SetInt(Save.isMusic,0);
+            audioObject.volume = 0;
+        }
+        else
+        {
+            PlayerPrefs.SetInt(Save.isMusic,1);
+            audioObject.volume = 1;
+        }
     }
 
 }

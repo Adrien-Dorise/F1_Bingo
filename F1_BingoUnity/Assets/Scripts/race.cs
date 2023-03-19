@@ -19,10 +19,22 @@ public class race : MonoBehaviour
     private bool isRace; //true if we are on race screen, false for season screen
     private string saveStatus; //Store the playerkeys value according to current screen (race / season)
     private int lightsPerBingo; //Numbe of lights lit per bingo selected
+    private AudioSource audioObject;
 
 
     private void Start()
     {
+        audioObject = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        if (!PlayerPrefs.HasKey(Save.isMusic))
+        {
+            PlayerPrefs.SetInt(Save.isMusic, 1);
+            audioObject.volume = 1;
+        }
+        else
+        {
+            audioObject.volume = PlayerPrefs.GetInt(Save.isMusic);
+        }
+
         isRace = SceneManager.GetActiveScene().name == "Race";
         if(isRace)
         {
